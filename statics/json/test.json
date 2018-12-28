@@ -1,0 +1,67 @@
+[
+  (
+  'fields',
+  [
+    {
+      'domain': None,
+      'name': 'objectid',
+      'defaultValue': None,
+      'alias': 'ObjectID',
+      'sqlType': 'sqlTypeOther',
+      'type': 'esriFieldTypeOID'
+    },
+    {
+      'domain': None,
+      'name': 'parentglobalid',
+      'defaultValue': None,
+      'alias': 'ParentGlobalID',
+      'length': 38,
+      'sqlType': 'sqlTypeGUID',
+      'type': 'esriFieldTypeGUID'
+    },
+    {
+      'domain': None,
+      'name': 'TITULO',
+      'defaultValue': None,
+      'alias': 'T\xedtulo',
+      'length': 100,
+      'sqlType': 'sqlTypeOther',
+      'type': 'esriFieldTypeString'
+    }
+  ]
+  ),
+  (
+  'objectIdFieldName',
+  'objectid'
+  ),
+  (
+  'globalIdFieldName',
+  'globalid'
+  ),
+  (
+  'features',
+  [
+    {
+      'attributes': {
+        'parentglobalid': 'd455ae5c-f9b3-4271-8b28-af244f229617',
+        'TITULO': 'Tabla Geologica',
+        'objectid': 17
+      }
+    },
+    {
+      'attributes': {
+        'parentglobalid': 'd455ae5c-f9b3-4271-8b28-af244f229617',
+        'TITULO': 'Mundo1',
+        'objectid': 18
+      }
+    },
+    {
+      'attributes': {
+        'parentglobalid': 'd455ae5c-f9b3-4271-8b28-af244f229617',
+        'TITULO': 'Logo Ingemmet',
+        'objectid': 19
+      }
+    }
+  ]
+  )
+]

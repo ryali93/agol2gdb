@@ -1,0 +1,362 @@
+{
+  "displayFieldName": "",
+  "fieldAliases": {
+    "OBJECTID": "objectid",
+    "HORIZONTE": "HORIZONTE",
+    "CD_MUESTRA": "CD_MUESTRA",
+    "CD_MUESTRA_GEOQ": "CD_MUESTRA_GEOQ",
+    "CD_MUESTRA_DUP": "CD_MUESTRA_DUP",
+    "EST_HUMEDAD": "EST_HUMEDAD",
+    "AMP_LIMITE": "AMP_LIMITE",
+    "FORM_LIMITE": "FORM_LIMITE",
+    "TEXTURA": "TEXTURA",
+    "ESTRUCT_TIPO": "ESTRUCT_TIPO",
+    "ESTRUCT_TAM": "ESTRUCT_TAM",
+    "ESTRUCT_GRADO": "ESTRUCT_GRADO",
+    "ESTRUCT_INTEMP": "ESTRUCT_INTEMP",
+    "COLOR_WHITEPAGE": "COLOR_WHITEPAGE",
+    "COLOR": "COLOR",
+    "CONSIST": "CONSIST",
+    "CONSIST_SECO": "CONSIST_SECO",
+    "CONSIST_HUM": "CONSIST_HUM",
+    "CONSIST_MOJ_AD": "CONSIST_MOJ_AD",
+    "CONSIST_MOJ_PL": "CONSIST_MOJ_PL",
+    "CEMENT_CONTIN": "CEMENT_CONTIN",
+    "CEMENT_ESTRUC": "CEMENT_ESTRUC",
+    "CEMENT_NATUR": "CEMENT_NATUR",
+    "CEMENT_GRADO": "CEMENT_GRADO",
+    "FRAGMROC_PORC": "FRAGMROC_PORC",
+    "FRAGMROC_TAMFRAG": "FRAGMROC_TAMFRAG",
+    "FRAGMROC_TAMART": "FRAGMROC_TAMART",
+    "FRAGMROC_FORMA": "FRAGMROC_FORMA",
+    "MOTEADO_ABUND": "MOTEADO_ABUND",
+    "MOTEADO_TAM": "MOTEADO_TAM",
+    "MOTEADO_DISTMAN": "MOTEADO_DISTMAN",
+    "MOTEADO_COLWP": "MOTEADO_COLWP",
+    "MOTEADO_COLOR": "MOTEADO_COLOR",
+    "MOTEADO_NATUR": "MOTEADO_NATUR",
+    "RAIZ_ASPGLOB": "RAIZ_ASPGLOB",
+    "RAIZ_TAM": "RAIZ_TAM",
+    "RAIZ_CANT": "RAIZ_CANT",
+    "RAIZ_PROF": "RAIZ_PROF",
+    "BIOL_ABUN": "BIOL_ABUN",
+    "BIOL_TIPO": "BIOL_TIPO",
+    "ARTF_TIPO": "ARTF_TIPO",
+    "OT_REVEST": "OT_REVEST",
+    "OT_CONCMIN": "OT_CONCMIN",
+    "OT_SUELORG": "OT_SUELORG",
+    "OT_SUELORGSUB": "OT_SUELORGSUB",
+    "CARBONATOS": "OT_CARBONATOS",
+    "CARBONATOSSUB": "OT_CARBONATOSSUB",
+    "YESO": "OT_YESO",
+    "OLOR": "OT_OLOR",
+    "x": "x",
+    "y": "y"
+  },
+  "geometryType": "esriGeometryPoint",
+  "fields": [
+    {
+      "name": "OBJECTID",
+      "type": "esriFieldTypeOID",
+      "alias": "OBJECTID"
+    },
+    {
+      "name": "HORIZONTE",
+      "type": "esriFieldTypeString",
+      "alias": "Horizonte",
+      "length": 100
+    },
+    {
+      "name": "CD_MUESTRA",
+      "type": "esriFieldTypeString",
+      "alias": "Codigo de muestra de caracterizacion",
+      "length": 255
+    },
+    {
+      "name": "CD_MUESTRA_GEOQ",
+      "type": "esriFieldTypeString",
+      "alias": "Codigo de muestra geoquimica",
+      "length": 50
+    },
+    {
+      "name": "CD_MUESTRA_DUP",
+      "type": "esriFieldTypeString",
+      "alias": "Codigo de muestra duplicada",
+      "length": 255
+    },
+    {
+      "name": "EST_HUMEDAD",
+      "type": "esriFieldTypeString",
+      "alias": "Estado de humedad",
+      "length": 3
+    },
+    {
+      "name": "AMP_LIMITE",
+      "type": "esriFieldTypeString",
+      "alias": "Amplitud del limite",
+      "length": 2
+    },
+    {
+      "name": "FORM_LIMITE",
+      "type": "esriFieldTypeString",
+      "alias": "Forma de limite",
+      "length": 1
+    },
+    {
+      "name": "TEXTURA",
+      "type": "esriFieldTypeString",
+      "alias": "Textura al tacto",
+      "length": 3
+    },
+    {
+      "name": "ESTRUCT_TIPO",
+      "type": "esriFieldTypeString",
+      "alias": "Estructura: Tipo",
+      "length": 2
+    },
+    {
+      "name": "ESTRUCT_TAM",
+      "type": "esriFieldTypeString",
+      "alias": "Estructura:Tamano",
+      "length": 2
+    },
+    {
+      "name": "ESTRUCT_GRADO",
+      "type": "esriFieldTypeString",
+      "alias": "Estructura:Grado",
+      "length": 2
+    },
+    {
+      "name": "ESTRUCT_INTEMP",
+      "type": "esriFieldTypeString",
+      "alias": "Estructura:Interperizacion de los fragmentos",
+      "length": 2
+    },
+    {
+      "name": "COLOR_WHITEPAGE",
+      "type": "esriFieldTypeString",
+      "alias": "Color Whitepage",
+      "length": 255
+    },
+    {
+      "name": "COLOR",
+      "type": "esriFieldTypeString",
+      "alias": "Color",
+      "length": 255
+    },
+    {
+      "name": "CONSIST",
+      "type": "esriFieldTypeString",
+      "alias": "Consistencia",
+      "length": 3
+    },
+    {
+      "name": "CONSIST_SECO",
+      "type": "esriFieldTypeString",
+      "alias": "Consistencia en seco",
+      "length": 3
+    },
+    {
+      "name": "CONSIST_HUM",
+      "type": "esriFieldTypeString",
+      "alias": "Consistencia en húmedo",
+      "length": 3
+    },
+    {
+      "name": "CONSIST_MOJ_AD",
+      "type": "esriFieldTypeString",
+      "alias": "Consistencia en mojado Adesividad",
+      "length": 3
+    },
+    {
+      "name": "CONSIST_MOJ_PL",
+      "type": "esriFieldTypeString",
+      "alias": "Consistencia en mojado Plasticidad",
+      "length": 3
+    },
+    {
+      "name": "CEMENT_CONTIN",
+      "type": "esriFieldTypeString",
+      "alias": "Cementacion: Continuidad",
+      "length": 1
+    },
+    {
+      "name": "CEMENT_ESTRUC",
+      "type": "esriFieldTypeString",
+      "alias": "Cementacion: Estructura",
+      "length": 1
+    },
+    {
+      "name": "CEMENT_NATUR",
+      "type": "esriFieldTypeString",
+      "alias": "Cementacion: Naturaleza",
+      "length": 2
+    },
+    {
+      "name": "CEMENT_GRADO",
+      "type": "esriFieldTypeString",
+      "alias": "Cementacion: Grado",
+      "length": 1
+    },
+    {
+      "name": "FRAGMROC_PORC",
+      "type": "esriFieldTypeString",
+      "alias": "FragRoc: Porcion (Volumen %)",
+      "length": 1
+    },
+    {
+      "name": "FRAGMROC_TAMFRAG",
+      "type": "esriFieldTypeString",
+      "alias": "FragRoc: Tamano de fragmentos",
+      "length": 255
+    },
+    {
+      "name": "FRAGMROC_TAMART",
+      "type": "esriFieldTypeString",
+      "alias": "FragRoc: Tamano de artefactos",
+      "length": 1
+    },
+    {
+      "name": "FRAGMROC_FORMA",
+      "type": "esriFieldTypeString",
+      "alias": "FragRoc: Forma",
+      "length": 1
+    },
+    {
+      "name": "MOTEADO_ABUND",
+      "type": "esriFieldTypeString",
+      "alias": "Moteado: Abundancia (%)",
+      "length": 1
+    },
+    {
+      "name": "MOTEADO_TAM",
+      "type": "esriFieldTypeString",
+      "alias": "Moteado: Tamano (mm)",
+      "length": 255
+    },
+    {
+      "name": "MOTEADO_DISTMAN",
+      "type": "esriFieldTypeString",
+      "alias": "Moteado: Distribuciones de las manchas",
+      "length": 2
+    },
+    {
+      "name": "MOTEADO_COLWP",
+      "type": "esriFieldTypeString",
+      "alias": "Moteado: Color Whitepage",
+      "length": 255
+    },
+    {
+      "name": "MOTEADO_COLOR",
+      "type": "esriFieldTypeString",
+      "alias": "Moteado: Color",
+      "length": 255
+    },
+    {
+      "name": "MOTEADO_NATUR",
+      "type": "esriFieldTypeString",
+      "alias": "Moteado: Naturaleza de moteados",
+      "length": 255
+    },
+    {
+      "name": "RAIZ_ASPGLOB",
+      "type": "esriFieldTypeString",
+      "alias": "Raiz: Aspecto global",
+      "length": 1
+    },
+    {
+      "name": "RAIZ_TAM",
+      "type": "esriFieldTypeString",
+      "alias": "Raiz: Tamano de raices",
+      "length": 255
+    },
+    {
+      "name": "RAIZ_CANT",
+      "type": "esriFieldTypeString",
+      "alias": "Raiz: Cantidad de raices",
+      "length": 1
+    },
+    {
+      "name": "RAIZ_PROF",
+      "type": "esriFieldTypeDouble",
+      "alias": "Raiz: Profundidad de enraizamiento (Prof. Efectiva) cm"
+    },
+    {
+      "name": "BIOL_ABUN",
+      "type": "esriFieldTypeString",
+      "alias": "Biol: Abundancia (%)",
+      "length": 1
+    },
+    {
+      "name": "BIOL_TIPO",
+      "type": "esriFieldTypeString",
+      "alias": "Biol: Tipo",
+      "length": 1
+    },
+    {
+      "name": "ARTF_TIPO",
+      "type": "esriFieldTypeString",
+      "alias": "Human: Tipo de artefactos",
+      "length": 2
+    },
+    {
+      "name": "OT_REVEST",
+      "type": "esriFieldTypeString",
+      "alias": "Otros: Revestimiento",
+      "length": 1
+    },
+    {
+      "name": "OT_CONCMIN",
+      "type": "esriFieldTypeString",
+      "alias": "Otros: Concreciones minerales",
+      "length": 1
+    },
+    {
+      "name": "OT_SUELORG",
+      "type": "esriFieldTypeString",
+      "alias": "Otros: Suelo organico (%)",
+      "length": 255
+    },
+    {
+      "name": "OT_SUELORGSUB",
+      "type": "esriFieldTypeString",
+      "alias": "Otros: Suelo organico Subgrupo",
+      "length": 4
+    },
+    {
+      "name": "CARBONATOS",
+      "type": "esriFieldTypeString",
+      "alias": "Otros: Carbonatos",
+      "length": 2
+    },
+    {
+      "name": "CARBONATOSSUB",
+      "type": "esriFieldTypeString",
+      "alias": "Otros: Carbonatos Subgrupo",
+      "length": 3
+    },
+    {
+      "name": "YESO",
+      "type": "esriFieldTypeString",
+      "alias": "Otros: Yeso",
+      "length": 2
+    },
+    {
+      "name": "OLOR",
+      "type": "esriFieldTypeString",
+      "alias": "Otros: Olor",
+      "length": 1
+    },
+    {
+      "name": "x",
+      "type": "esriFieldTypeDouble",
+      "alias": "x "
+    },
+    {
+      "name": "y",
+      "type": "esriFieldTypeDouble",
+      "alias": "y"
+    }
+  ],
+  "features": []
+}
