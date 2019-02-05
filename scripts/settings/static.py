@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
 
-'''
-Importacion de todas las librerias
-'''
-
 import os, requests, urllib, urllib2
 import shutil, json, uuid
 import arcpy

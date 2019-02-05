@@ -1,19 +1,20 @@
 # -*- coding: utf-8 -*-
 
-from service_geopedologia import *
+import sys
+from service_geopedologia2 import *
 from static import *
 
 conn = Statics().conn
+srv = Services()
 
-# GPT_MS_POG
-class FichaPOG(object):
+class GPT_MS_POG(object):
     def __init__(self):
+        self.CODCAL = u'CODCAL'
         self.objectid = u'objectid'
         self.globalid = u'globalid'
         self.PROY = u'PROY'
         self.PREGLITO = u'PREGLITO'
         self.CODLITO = u'CODLITO'
-        self.CODCAL = u'CODCAL'
         self.DATE = u'DATE'
         self.ESPEC = u'ESPEC'
         self.LOCALIDAD = u'LOCALIDAD'
@@ -38,6 +39,10 @@ class FichaPOG(object):
         self.Editor = u'Editor'
 
     @property
+    def query_url(self):
+        return ''.join([srv.main_url, srv.GPT_MS_POG, '/query'])
+
+    @property
     def name(self):
         res = 'GPT_MS_POG'
         return res
@@ -50,8 +55,9 @@ class FichaPOG(object):
     def __str__(self):
         return self.name
 
-class FichaECO:
+class TB_MS_ECOFISIOGRAFIA(object):
     def __init__(self):
+        self.CODCAL = u'CODCAL_ECO'
         self.objectid = u'objectid'
         self.globalid = u'globalid'
         self.CALIDAD = u'CALIDAD'
@@ -82,11 +88,10 @@ class FichaECO:
         self.GRIETASUP = u'GRIETASUP'
         self.GRIETAPROF = u'GRIETAPROF'
         self.GRIETADIST = u'GRIETADIST'
-        # self.parentglobalid = u'parentglobalid'
-        # self.CreationDate = u'CreationDate'
-        # self.Creator = u'Creator'
-        # self.EditDate = u'EditDate'
-        # self.Editor = u'Editor'
+
+    @property
+    def query_url(self):
+        return ''.join([srv.main_url, srv.TB_MS_ECO, '/query'])
 
     @property
     def name(self):
@@ -101,8 +106,9 @@ class FichaECO:
     def __str__(self):
         return self.name
 
-class FichaMORFO:
+class TB_MS_MORFOPEDOLOGIA(object):
     def __init__(self):
+        self.CODCAL = u'CODCAL_MORFO'
         self.objectid = u'objectid'
         self.globalid = u'globalid'
         self.HRZT = u'HRZT'
@@ -158,11 +164,10 @@ class FichaMORFO:
         self.CARBSUB = u'CARBSUB'
         self.YESO = u'YESO'
         self.OLOR = u'OLOR'
-        # self.parentglobalid = u'parentglobalid'
-        # self.CreationDate = u'CreationDate'
-        # self.Creator = u'Creator'
-        # self.EditDate = u'EditDate'
-        # self.Editor = u'Editor'
+
+    @property
+    def query_url(self):
+        return ''.join([srv.main_url, srv.TB_MS_MORFO, '/query'])
 
     @property
     def name(self):
@@ -177,11 +182,15 @@ class FichaMORFO:
     def __str__(self):
         return self.name
 
-class FichaFOTO:
+class TB_MS_FOTOS(object):
     def __init__(self):
-        self.globalid = "Globalid"
-        self.calicata = "CODCAL"
-        self.image = "IMAGE"
+        self.globalid = "globalid"
+        self.CODCAL = "CODCAL_FOTOS"
+        self.NOMBRE = "NOMBRE"
+
+    @property
+    def query_url(self):
+        return ''.join([srv.main_url, srv.TB_MS_FOTO, '/query'])
 
     @property
     def name(self):

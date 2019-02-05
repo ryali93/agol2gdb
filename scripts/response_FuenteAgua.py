@@ -1,26 +1,19 @@
 # -*- coding: utf-8 -*-
-from settings.model_rocasmenas import *
+from settings.model_FuenteAgua import *
 from settings.nls import *
 
 reload(sys)
 sys.setdefaultencoding('Windows-1252')
 arcpy.env.overwriteOutput = True
 
-class Response_RocasMenas(object):
+class Response_FuenteAgua(object):
     def __init__(self, cdmtra=None):
         self.cdmtra = "', '".join(cdmtra) if cdmtra else None
         self.srv = Services()
         self.scratch = Statics().scratch
 
-        self.GPT_RM     = GPT_RM_ROCA_MENA()
-        self.TB_RM_01   = TB_RM_01_LITOLOGIA()
-        self.TB_RM_01_1 = TB_RM_CARACTMIN_ALTER()
-        self.TB_RM_02   = TB_RM_02_MINERALIZACION()
-        self.TB_RM_02_1 = TB_RM_MINERALIZACION_ESTR()
-        self.TB_RM_03   = TB_RM_03_ACTMINERA()
-        self.TB_RM_04   = TB_RM_04_TIPOMUESTRA()
-        self.TB_RM_05   = TB_RM_05_LABORATORIO()
-        self.TB_RM_06   = TB_RM_06_MULTIMEDIA()
+        self.GPT_FASUB   = GPT_DGAR_FASUB()
+        self.TB_MULTIM   = TB_FA_MULTIMEDIA()
 
         self.CDMTRA = "CD_MTRA"
         self.FieldArchivoImg = "ARCHIVO"
@@ -31,14 +24,14 @@ class Response_RocasMenas(object):
         self.responseId = None
 
     def sampleCounting(self):
-        url = self.srv.query_url
+        url = srv.query_url
         response = requests.post(
             url,
             data={
                 'where': '1=1',
                 'outFields': '*',
                 'f': 'pjson',
-                'token': self.srv.token
+                'token': srv.token
             }
         )
         res = json.loads(response.text)
@@ -47,24 +40,10 @@ class Response_RocasMenas(object):
     # Extrae los campos del archivo Model, dependiendo del modulo
     def getFields(self, table):
         self.items=[]
-        if table == "GPT_RM_ROCA_MENA":
-            self.items = self.GPT_RM.__dict__.items()
-        elif table == "TB_RM_01_LITOLOGIA":
-            self.items = self.TB_RM_01.__dict__.items()
-        elif table == "TB_RM_CARACTMIN_ALTER":
-            self.items = self.TB_RM_01_1.__dict__.items()
-        elif table == "TB_RM_02_MINERALIZACION":
-            self.items = self.TB_RM_02.__dict__.items()
-        elif table == "TB_RM_MINERALIZACION_ESTR":
-            self.items = self.TB_RM_02_1.__dict__.items()
-        elif table == "TB_RM_03_ACTMINERA":
-            self.items = self.TB_RM_03.__dict__.items()
-        elif table == "TB_RM_04_TIPOMUESTRA":
-            self.items = self.TB_RM_04.__dict__.items()
-        elif table == "TB_RM_05_LABORATORIO":
-            self.items = self.TB_RM_05.__dict__.items()
-        elif table == "TB_RM_06_MULTIMEDIA":
-            self.items = self.TB_RM_06.__dict__.items()
+        if table == "GPT_DGAR_FASUB":
+            self.items = self.GPT_FASUB.__dict__.items()
+        elif table == "TB_FA_MULTIMEDIA":
+            self.items = self.TB_MULTIM.__dict__.items()
         self.fields = [x[1] for x in self.items]
 
     # Request de datos Agol2Gdb
@@ -255,7 +234,7 @@ class Response_RocasMenas(object):
 
             arcpy.AddMessage(self.msg.loadimageaction)
             for x in photos:
-                url_img = os.path.join(self.srv.main_url, self.srv.TB_RM_06_MULTIMEDIA, str(x[0]), "attachments",
+                url_img = os.path.join(self.srv.main_url, self.srv.TB_FA_MULTIMEDIA, str(x[0]), "attachments",
                                        "{}?token={}".format(x[1], self.srv.token))
                 filedata = urllib2.urlopen(url_img)
                 image = filedata.read()
@@ -270,24 +249,16 @@ class Response_RocasMenas(object):
     def deleteAgol(self):
         self.query = '1=1' if self.cdmtra is None else "{} IN ('{}')".format(self.CDMTRA, self.cdmtra)
         try:
-            self.deleteRowsService(self.srv.delete_url_GPT_RM_ROCA_MENA)
+            self.deleteRowsService(self.srv.delete_url_GPT_FA_SUB)
         except:
             pass
 
     # Proceso total
     def process(self):
-        self.processTB(self.GPT_RM,    "tabla")
-        self.processTB(self.TB_RM_01,  "tabla")
-        self.processTB(self.TB_RM_01_1,"tabla")
-        self.processTB(self.TB_RM_02,  "tabla")
-        self.processTB(self.TB_RM_02_1,"tabla")
-        self.processTB(self.TB_RM_03,  "tabla")
-        self.processTB(self.TB_RM_04,  "tabla")
-        # self.processTB(self.TB_RM_05,  "tabla") # Laboratorio
-        # Imagen
-        self.processTB(self.TB_RM_06,  "image")
-        self.processImg(self.TB_RM_06)
-        #Delete
+        self.processTB(self.GPT_FASUB, "tabla")
+        #Imagen
+        self.processTB(self.TB_MULTIM, "image")
+        self.processImg(self.TB_MULTIM)
         self.deleteAgol()
 
     def main(self):
@@ -298,5 +269,5 @@ class Response_RocasMenas(object):
             raise
 
 # if __name__ == "__main__":
-#     poo = Response_RocasMenas()
+#     poo = Response_FuenteAgua()
 #     poo.main()

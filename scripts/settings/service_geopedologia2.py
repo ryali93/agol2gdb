@@ -12,18 +12,12 @@ password = 'publ1c4d0r'
 class Services(object):
     def __init__(self):
         self.host = r'https://services1.arcgis.com'
-        self.main_url = r'https://services1.arcgis.com/IOnDXYLCAWAfoO54/ArcGIS/rest/services/service_b4f511431ac444cd8d0d3f8245051fc4/FeatureServer/'
+        self.main_url = r'https://services1.arcgis.com/IOnDXYLCAWAfoO54/ArcGIS/rest/services/service_1d35578ed5e941a7b6797c257e30c14e/FeatureServer/'
 
-        self.GPT_RM_ROCA_MENA           = '0'
-        self.TB_RM_01_LITOLOGIA         = '1'
-        self.TB_RM_02_MINERALIZACION    = '3'
-        self.TB_RM_03_ACTMINERA         = '5'
-        self.TB_RM_04_TIPOMUESTRA       = '6'
-        self.TB_RM_05_LABORATORIO       = '7'
-        self.TB_RM_06_MULTIMEDIA        = '8'
-
-        self.TB_RM_CARACTMIN_ALTER      = '2'
-        self.TB_RM_MINERALIZACION_ESTR  = '4'
+        self.GPT_MS_POG = "0"
+        self.TB_MS_ECO = "1"
+        self.TB_MS_MORFO = "2"
+        self.TB_MS_FOTO = "3"
 
         self.token = self.getToken()
 
@@ -45,23 +39,21 @@ class Services(object):
     # Url para consulta de codigos de muestra
     @property
     def query_url(self):
-        return ''.join([self.main_url, self.GPT_RM_ROCA_MENA, '/query?token={}'.format(self.token)])
+        return ''.join([self.main_url, self.GPT_MS_POG, '/query?token={}'.format(self.token)])
 
-    # Url para consulta de fotos
+    # Url para la consulta de imagenes (Photos)
     @property
     def query_url_attach_Photos(self):
-        return ''.join([self.main_url, self.TB_RM_06_MULTIMEDIA, '/queryAttachments?token={}'.format(self.token)])
+        return ''.join([self.main_url, self.TB_MS_FOTO, '/queryAttachments?token={}'.format(self.token)])
 
-    # Url para la eliminacion de registros
+    # Url para la eliminacion de registros de ficha POG
     @property
-    def delete_url_GPT_RM_ROCA_MENA(self):
-        return ''.join([self.main_url, self.GPT_RM_ROCA_MENA, '/deleteFeatures?token={}'.format(self.token)])
+    def delete_url_GPT_MS_POG(self):
+        return ''.join([self.main_url, self.GPT_MS_POG, '/deleteFeatures?token={}'.format(self.token)])
 
     def __str__(self):
         return self.main_url
 
-
 # import webbrowser
-# poo = Services()
-# url = poo.query_url_attach_Photos
+# url = "https://services1.arcgis.com/IOnDXYLCAWAfoO54/ArcGIS/rest/services/service_867093e5f05e4186b76c27e8ac249bdb/FeatureServer/0?token=KKwULK0z9PHeLYMXV-EV9y5ACuui7rHGvhtnz2__6nlu1j3ZmOBkWjnGR2a4OKQ9HtG1DbAN7kgjurVBYzEoz3NcdZOoe9f7o1PCuaFvO6sKeEI4G2vnunqkXaCk7q5rNsFE_-Z6z_Zy5beFGq4EVYNtXFflY8hWyy7f2EDelJJFCwBtA7tlNL6C7WWeIaTWcBYMYWnSUBcJsWtLCzOLSA.."
 # webbrowser.open_new(url)

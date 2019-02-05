@@ -1,29 +1,24 @@
 # -*- coding: utf-8 -*-
-from settings.model_rocasmenas import *
+from settings.model_geopedologia2 import *
 from settings.nls import *
 
 reload(sys)
 sys.setdefaultencoding('Windows-1252')
 arcpy.env.overwriteOutput = True
 
-class Response_RocasMenas(object):
+class Response_Geopedologia(object):
     def __init__(self, cdmtra=None):
         self.cdmtra = "', '".join(cdmtra) if cdmtra else None
         self.srv = Services()
         self.scratch = Statics().scratch
 
-        self.GPT_RM     = GPT_RM_ROCA_MENA()
-        self.TB_RM_01   = TB_RM_01_LITOLOGIA()
-        self.TB_RM_01_1 = TB_RM_CARACTMIN_ALTER()
-        self.TB_RM_02   = TB_RM_02_MINERALIZACION()
-        self.TB_RM_02_1 = TB_RM_MINERALIZACION_ESTR()
-        self.TB_RM_03   = TB_RM_03_ACTMINERA()
-        self.TB_RM_04   = TB_RM_04_TIPOMUESTRA()
-        self.TB_RM_05   = TB_RM_05_LABORATORIO()
-        self.TB_RM_06   = TB_RM_06_MULTIMEDIA()
+        self.GPT_POG = GPT_MS_POG()
+        self.TB_MS_01 = TB_MS_ECOFISIOGRAFIA()
+        self.TB_MS_02 = TB_MS_MORFOPEDOLOGIA()
+        self.TB_MS_03 = TB_MS_FOTOS()
 
-        self.CDMTRA = "CD_MTRA"
-        self.FieldArchivoImg = "ARCHIVO"
+        self.CDMTRA = "CODCAL"
+        self.FieldArchivoImg = "IMAGE"
 
         self.msg = Messages()
         self.jsonresponse = None
@@ -31,14 +26,14 @@ class Response_RocasMenas(object):
         self.responseId = None
 
     def sampleCounting(self):
-        url = self.srv.query_url
+        url = srv.query_url
         response = requests.post(
             url,
             data={
                 'where': '1=1',
                 'outFields': '*',
                 'f': 'pjson',
-                'token': self.srv.token
+                'token': srv.token
             }
         )
         res = json.loads(response.text)
@@ -46,25 +41,14 @@ class Response_RocasMenas(object):
 
     # Extrae los campos del archivo Model, dependiendo del modulo
     def getFields(self, table):
-        self.items=[]
-        if table == "GPT_RM_ROCA_MENA":
-            self.items = self.GPT_RM.__dict__.items()
-        elif table == "TB_RM_01_LITOLOGIA":
-            self.items = self.TB_RM_01.__dict__.items()
-        elif table == "TB_RM_CARACTMIN_ALTER":
-            self.items = self.TB_RM_01_1.__dict__.items()
-        elif table == "TB_RM_02_MINERALIZACION":
-            self.items = self.TB_RM_02.__dict__.items()
-        elif table == "TB_RM_MINERALIZACION_ESTR":
-            self.items = self.TB_RM_02_1.__dict__.items()
-        elif table == "TB_RM_03_ACTMINERA":
-            self.items = self.TB_RM_03.__dict__.items()
-        elif table == "TB_RM_04_TIPOMUESTRA":
-            self.items = self.TB_RM_04.__dict__.items()
-        elif table == "TB_RM_05_LABORATORIO":
-            self.items = self.TB_RM_05.__dict__.items()
-        elif table == "TB_RM_06_MULTIMEDIA":
-            self.items = self.TB_RM_06.__dict__.items()
+        if table == "GPT_MS_POG":
+            self.items = self.GPT_POG.__dict__.items()
+        elif table == "TB_MS_ECOFISIOGRAFIA":
+            self.items = self.TB_MS_01.__dict__.items()
+        elif table == "TB_MS_MORFOPEDOLOGIA":
+            self.items = self.TB_MS_02.__dict__.items()
+        elif table == "TB_MS_FOTOS":
+            self.items = self.TB_MS_03.__dict__.items()
         self.fields = [x[1] for x in self.items]
 
     # Request de datos Agol2Gdb
@@ -133,6 +117,11 @@ class Response_RocasMenas(object):
         jsonresponse = res.get("attachmentGroups")
         return jsonresponse
 
+    # Llegar a la ruta de la foto en base a la clase del html
+    def navResponseHTML(self):
+        soup = BeautifulSoup(self.response, "lxml")
+        self.soup = soup.find("table", {"class": "ftrTable"})
+
     # Actualiza el campo de la imagen para la tabla de multimedia creado
     def updateImageTable(self, row):
         if self.FieldArchivoImg not in [x.name for x in arcpy.ListFields(self.copy)]:
@@ -151,7 +140,7 @@ class Response_RocasMenas(object):
         for m in listaCDMTRA:
             sql = "{} = '{}'".format(self.CDMTRA, m)
             titleTmp = ""
-            with arcpy.da.UpdateCursor(self.copy, ["TITULO", "TIPO", self.FieldArchivoImg], sql) as cursor:
+            with arcpy.da.UpdateCursor(self.copy, ["NOMBRE", "TIPO", self.FieldArchivoImg], sql) as cursor:
                 for x in cursor:
                     if x[0] is not None:
                         titleTmp = x[0]
@@ -186,6 +175,7 @@ class Response_RocasMenas(object):
                     n = n + 1
             del cursorU
             self.listaCDMTRA = [[x[0], x[1]] for x in arcpy.da.SearchCursor(self.copy, ["EVENTID", self.CDMTRA])]
+            arcpy.DeleteField_management(self.copy, "globalid")
 
         if table.split("_")[0] == "TB":
             self.copy = arcpy.TableToTable_conversion(feature, self.scratch, '{}a{:.5}'.format(table, str(uuid.uuid4())))
@@ -214,18 +204,26 @@ class Response_RocasMenas(object):
         if res:
             succes = res[0].get('success')
             if succes:
-                arcpy.AddMessage(self.msg.succesdelete.format(self.cdmtra) if self.cdmtra else self.msg.deleterows)
+                arcpy.AddMessage(
+                    self.msg.succesdelete.format(self.cdmtra)
+                )
             else:
-                arcpy.AddError(self.msg.faileddelete.format(self.cdmtra))
+                arcpy.AddError(
+                    self.msg.faileddelete.format(self.cdmtra)
+                )
                 raise
         else:
-            arcpy.AddError(self.msg.faileddelete.format(self.cdmtra))
+            arcpy.AddError(
+                self.msg.faileddelete.format(self.cdmtra)
+            )
             raise
 
     # Proceso de Tablas
     def processTB(self, table, tipodato):
-        arcpy.AddMessage("\n{}".format(table.name))
-        self.query = '1=1' if self.cdmtra is None else "{} IN ('{}')".format(table.CD_MTRA, self.cdmtra)
+        print "\n{}".format(table.name)
+
+        self.query = '1=1' if self.cdmtra is None else "{} IN ('{}')".format(table.CODCAL, self.cdmtra)
+
         arcpy.AddMessage(self.msg.initFicha)
         self.getFields(table.name)
         arcpy.AddMessage(self.msg.waitresponse)
@@ -255,7 +253,7 @@ class Response_RocasMenas(object):
 
             arcpy.AddMessage(self.msg.loadimageaction)
             for x in photos:
-                url_img = os.path.join(self.srv.main_url, self.srv.TB_RM_06_MULTIMEDIA, str(x[0]), "attachments",
+                url_img = os.path.join(self.srv.main_url, self.srv.TB_MS_FOTO, str(x[0]), "attachments",
                                        "{}?token={}".format(x[1], self.srv.token))
                 filedata = urllib2.urlopen(url_img)
                 image = filedata.read()
@@ -270,23 +268,17 @@ class Response_RocasMenas(object):
     def deleteAgol(self):
         self.query = '1=1' if self.cdmtra is None else "{} IN ('{}')".format(self.CDMTRA, self.cdmtra)
         try:
-            self.deleteRowsService(self.srv.delete_url_GPT_RM_ROCA_MENA)
+            self.deleteRowsService(self.srv.delete_url_GPT_MS_POG)
         except:
             pass
 
-    # Proceso total
     def process(self):
-        self.processTB(self.GPT_RM,    "tabla")
-        self.processTB(self.TB_RM_01,  "tabla")
-        self.processTB(self.TB_RM_01_1,"tabla")
-        self.processTB(self.TB_RM_02,  "tabla")
-        self.processTB(self.TB_RM_02_1,"tabla")
-        self.processTB(self.TB_RM_03,  "tabla")
-        self.processTB(self.TB_RM_04,  "tabla")
-        # self.processTB(self.TB_RM_05,  "tabla") # Laboratorio
-        # Imagen
-        self.processTB(self.TB_RM_06,  "image")
-        self.processImg(self.TB_RM_06)
+        self.processTB(self.GPT_POG, "tabla")
+        self.processTB(self.TB_MS_01, "tabla")
+        self.processTB(self.TB_MS_02, "tabla")
+        #Imagen
+        self.processTB(self.TB_MS_03, "image")
+        self.processImg(self.TB_MS_03)
         #Delete
         self.deleteAgol()
 
@@ -298,5 +290,5 @@ class Response_RocasMenas(object):
             raise
 
 # if __name__ == "__main__":
-#     poo = Response_RocasMenas()
+#     poo = Response_Geopedologia(["GR36B-CA009"])
 #     poo.main()

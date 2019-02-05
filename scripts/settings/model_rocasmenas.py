@@ -90,9 +90,9 @@ class TB_RM_01_LITOLOGIA(object):
 
     @property
     def path(self):
-        ds = static.ds
-        name = ds + "." + self.name
-        res = os.path.join(conn, name)
+        # ds = static.ds
+        # name = ds + "." + self.name
+        res = os.path.join(conn, self.name)
         return res
 
     def __str__(self):
@@ -121,9 +121,9 @@ class TB_RM_CARACTMIN_ALTER(object):
 
     @property
     def path(self):
-        ds = static.ds
-        name = ds + "." + self.name
-        res = os.path.join(conn, name)
+        # ds = static.ds
+        # name = ds + "." + self.name
+        res = os.path.join(conn, self.name)
         return res
 
     def __str__(self):
@@ -150,9 +150,9 @@ class TB_RM_02_MINERALIZACION(object):
 
     @property
     def path(self):
-        ds = static.ds
-        name = ds + "." + self.name
-        res = os.path.join(conn, name)
+        # ds = static.ds
+        # name = ds + "." + self.name
+        res = os.path.join(conn, self.name)
         return res
 
     def __str__(self):
@@ -188,9 +188,9 @@ class TB_RM_MINERALIZACION_ESTR(object):
 
     @property
     def path(self):
-        ds = static.ds
-        name = ds + "." + self.name
-        res = os.path.join(conn, name)
+        # ds = static.ds
+        # name = ds + "." + self.name
+        res = os.path.join(conn, self.name)
         return res
 
     def __str__(self):
@@ -217,9 +217,9 @@ class TB_RM_03_ACTMINERA(object):
 
     @property
     def path(self):
-        ds = static.ds
-        name = ds + "." + self.name
-        res = os.path.join(conn, name)
+        # ds = static.ds
+        # name = ds + "." + self.name
+        res = os.path.join(conn, self.name)
         return res
 
     def __str__(self):
@@ -252,9 +252,7 @@ class TB_RM_04_TIPOMUESTRA(object):
 
     @property
     def path(self):
-        ds = static.ds
-        name = ds + "." + self.name
-        res = os.path.join(conn, name)
+        res = os.path.join(conn, self.name)
         return res
 
     def __str__(self):
@@ -283,9 +281,9 @@ class TB_RM_05_LABORATORIO(object):
 
     @property
     def path(self):
-        ds = static.ds
-        name = ds + "." + self.name
-        res = os.path.join(conn, name)
+        # ds = static.ds
+        # name = ds + "." + self.name
+        res = os.path.join(conn, self.name)
         return res
 
     def __str__(self):
@@ -295,17 +293,17 @@ class TB_RM_06_MULTIMEDIA(object):
     def __init__(self):
         self.objectid = u'objectid'
         self.globalid = u'globalid'
-        self.CD_MTRA = u'CD_MTRA'
+        self.CD_MTRA = u'CD_MTRA_MU'
         self.TITULO = u'TITULO'
         self.FECHA = u'FECHA'
         self.AUTOR = u'AUTOR'
-        self.TIPO_F = u'TIPO_F'
+        self.TIPO = u'TIPO_F'
         self.DSCP = u'DSCP'
         self.OBS = u'OBS'
         self.EXT_ARCH = u'EXT_ARCH'
         self.ORDEN = u'ORDEN'
         self.LINK = u'LINK'
-        self.ARCHIVO = u'ARCHIVO'
+        # self.ARCHIVO = u'ARCHIVO'
 
     @property
     def query_url(self):
@@ -322,9 +320,9 @@ class TB_RM_06_MULTIMEDIA(object):
 
     @property
     def path(self):
-        ds = static.ds
-        name = ds + "." + self.name
-        res = os.path.join(conn, name)
+        # ds = static.ds
+        # name = ds + "." + self.name
+        res = os.path.join(conn, self.name)
         return res
 
     def __str__(self):
