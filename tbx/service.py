@@ -1,5 +1,5 @@
 import sys
-sys.path.insert(0, r'D:\aplicativos\geoprocesos\BDGeocientifica')
+sys.path.insert(0, r'D:\aplicaciones\geoproceso\BDGeocientifica')
 
 import trigger
 

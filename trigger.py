@@ -10,4 +10,4 @@ def executeProcess(modulo, codes):
         arcpy.SetParameterAsText(2, "")
 
 # if __name__ == "__main__":
-#     executeProcess("DRME_ROCASMENAS", "PRUEBA1,PRUEBA2")
+#     executeProcess("DRME_ANAPS", "ROY")

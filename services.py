@@ -46,6 +46,18 @@ modules = {
                 "0": "GPT_DGAR_FASUB",
                 "3": "TB_FA_MULTIMEDIA"
             }
+    },
+    "DRME_ANAPS": {
+        "name": "GPT_DRME_ANAPS",
+        "alias": "anaps",
+        "CD_MTRA": "CD_MTRA",
+        "main_url": "https://services1.arcgis.com/IOnDXYLCAWAfoO54/ArcGIS/rest/services/service_79a0560e29964cf2bd40ff80f7a4dfd4/FeatureServer/",
+        "tables":
+            {
+                "0": "GPT_DRME_ANAPS",
+                "1": "TB_ANAPS_01_LABORATORIO",
+                "2": "TB_ANAPS_02_MULTIMEDIA"
+            }
     }
 }
 

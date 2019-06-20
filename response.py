@@ -37,7 +37,7 @@ class response(object):
         self.scratch = _SCRATCH
 
         self.CDMTRA = modules[module]["CD_MTRA"]
-        self.FieldArchivoImg = "IMAGE"
+        self.FieldArchivoImg = "ARCHIVO"
         self.estado = "REVISION"
 
         self.msg = Messages()
@@ -181,6 +181,7 @@ class response(object):
                 cursor.updateRow(x)
         if self.tipodato == "tabla":
             arcpy.management.Append(self.copy, feature.path, "NO_TEST")
+            pass
 
     # Subir los datos temporales (GPT, TB e Image) del Scratch a la BD
     def appendImageTable(self, feature):

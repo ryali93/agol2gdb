@@ -594,3 +594,106 @@ class TB_FA_MULTIMEDIA(object):
 
     def __str__(self):
         return self.name
+
+# Servicios para el modulo de ANAPs
+
+class GPT_DRME_ANAPS(object):
+    def __init__(self):
+        self.objectid 	= u'objectid'
+        self.globalid 	= u'globalid'
+        self.PROY = u'PROY'
+        self.SUB_PROY = u'SUB_PROY'
+        self.CD_MTRA = u'CD_MTRA'
+        self.F_MTRA = u'F_MTRA'
+        self.GEOLOGO = u'GEOLOGO'
+        self.AREA_ESTUDIO = u'AREA_ESTUDIO'
+        self.LATITUD = u'LATITUD'
+        self.LONGITUD = u'LONGITUD'
+        self.ESTE = u'ESTE'
+        self.NORTE = u'NORTE'
+        self.DATUM = u'DATUM'
+        self.ZONA = u'ZONA'
+        self.ALTITUD = u'ALTITUD'
+        self.REGION = u'REGION'
+        self.PROVINCIA = u'PROVINCIA'
+        self.DISTRITO = u'DISTRITO'
+        self.HOJA = u'HOJA'
+        self.COMUNIDAD = u'COMUNIDAD'
+        self.PARAJE = u'PARAJE'
+        self.CARAC_MUESTRA = u'CARAC_MUESTRA'
+        self.TIPO_MUESTRA = u'TIPO_MUESTRA'
+        self.TIPO_ANALISIS = u'TIPO_ANALISIS'
+        self.LITOLOGIA = u'LITOLOGIA'
+        self.ALTERACION = u'ALTERACION'
+        self.MINERALIZACION = u'MINERALIZACION'
+        self.OTROS = u'OTROS'
+
+    @property
+    def name(self):
+        res = 'GPT_ANAPS_MUESTREO'
+        return res
+
+    @property
+    def path(self):
+        name = self.name
+        res = os.path.join(conn, name)
+        return res
+
+    def __str__(self):
+        return self.name
+
+class TB_ANAPS_01_LABORATORIO(object):
+    def __init__(self):
+        self.objectid = u'objectid'
+        self.globalid = u'globalid'
+        self.CD_MTRA = u'CD_MTRA_LA'
+        self.ORDEN = u'ORDEN_LB'
+        self.TIPO = u'TIPO_A'
+        self.ELEMENTO = u'ELEMENTO'
+        self.UNIDAD = u'UNIDAD'
+        self.SIMBOLO = u'SIMBOLO'
+        self.VALOR = u'VALOR'
+
+    @property
+    def name(self):
+        res = 'TB_ANAPS_01_LABORATORIO'
+        return res
+
+    @property
+    def path(self):
+        name = self.name
+        res = os.path.join(conn, name)
+        return res
+
+    def __str__(self):
+        return self.name
+
+class TB_ANAPS_02_MULTIMEDIA(object):
+    def __init__(self):
+        self.objectid = u'objectid'
+        self.globalid = u'globalid'
+        self.CD_MTRA = u'CD_MTRA_MU'
+        self.ARCHIVO = u'ARCHIVO'
+        self.TITULO = u'TITULO'
+        self.FECHA = u'FECHA'
+        self.AUTOR = u'AUTOR'
+        self.TIPO = u'TIPO_F'
+        self.DSCP = u'DSCP'
+        self.OBS = u'OBS'
+        self.EXT_ARCH = u'EXT_ARCH'
+        self.ORDEN = u'ORDEN'
+        self.LINK = u'LINK'
+
+    @property
+    def name(self):
+        res = 'TB_ANAPS_02_MULTIMEDIA'
+        return res
+
+    @property
+    def path(self):
+        name = self.name
+        res = os.path.join(conn, name)
+        return res
+
+    def __str__(self):
+        return self.name
