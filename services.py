@@ -100,3 +100,5 @@ class services(object):
     @property
     def delete_url(self):
         return ''.join([self.main_url, str(min(self.tbsId)), '/deleteFeatures?token={}'.format(token)])
+
+# print(services("DRME_ROCASMENAS").query_url)

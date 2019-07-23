@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+
+# Importacion de librerias y modulos
 from models import *
 from messages import *
 from services import *
@@ -13,6 +15,11 @@ arcpy.env.overwriteOutput = True
 _SCRATCH = arcpy.env.scratchGDB
 
 def sampleCounting(modulo):
+    '''
+    Funcion para devolver el JSON del feature principal del modulo (Listado de codigos de muestra)
+    :param modulo: Nombre del modulo
+    :return: JSON del feature principal del modulo (Listado de codigos de muestra)
+    '''
     url = services(modulo).query_url
     response = requests.post(
         url,
@@ -27,10 +34,18 @@ def sampleCounting(modulo):
     return res.get('features')
 
 def getValuefromCode(clase, nombrecode):
+    '''
+    :param clase: Clase del feature o tabla de algun modulo
+    :param nombrecode: Variable dentro de una clase
+    :return: Extrae elemento de la variable de una clase como diccionario
+    '''
     elm = clase.__dict__.get(nombrecode)
     return elm
 
 class response(object):
+    '''
+    Clase principal para la descarga de Agol a la BD
+    '''
     def __init__(self, module=None, cdmtra=None):
         self.cdmtra = "('%s')" % "','".join(cdmtra.split(",")) if cdmtra else None
         self.srv = services(module)
@@ -47,11 +62,18 @@ class response(object):
 
     # Extrae los campos del archivo Model, dependiendo del modulo
     def getFields(self, table):
+        '''
+        :param table: Tabla de la que se extraen sus campos 
+        '''
         self.items = table().__dict__.items()
         self.fields = [x[1] for x in self.items]
 
     # Request de datos Agol2Gdb
     def responseRows(self, query):
+        '''
+        Consulta a la base agol y devuelve JSON de la URL de busqueda 
+        :param query: URL de consulta
+        '''
         response = requests.post(
             query,
             data={
@@ -70,6 +92,10 @@ class response(object):
 
     # Request de GlobalId de tabla de imagenes
     def responseImageGid(self, query):
+        '''
+        Devuelve un listado de los globalid de las imagenes de un modulo
+        :param query: URL de consulta
+        '''
         response = requests.post(
             query,
             data={
@@ -92,6 +118,9 @@ class response(object):
 
     # Lista de CDMTRA con fotos
     def datosFotos(self):
+        '''
+        :return: Junta los codigos de muestra con su debido globalid de su foto
+        '''
         listaFotos = []
         for m in self.listaCDMTRA:
             for n in self.listaParGlo:
@@ -101,6 +130,9 @@ class response(object):
 
     # Recoge todas las rutas de las imagenes
     def responseAttachments(self):
+        '''
+        :return: Consulta a la base agol y devuelve JSON de la URL de busqueda que incluyen las fotos
+        '''
         response = requests.post(
             self.srv.query_url_attachs,
             data={
@@ -115,6 +147,9 @@ class response(object):
 
     # Actualiza el campo de la imagen para la tabla de multimedia creado
     def updateImageTable(self, row):
+        '''
+        :param row: Agregar la imagen (fotografía) a la tabla Multimedia 
+        '''
         if self.FieldArchivoImg not in [x.name for x in arcpy.ListFields(self.copy)]:
             arcpy.AddField_management(self.copy, self.FieldArchivoImg, "BLOB")
         if "TIPO" not in [x.name for x in arcpy.ListFields(self.copy)]:
@@ -127,6 +162,9 @@ class response(object):
 
     # Actualiza y pule los campos de las imagenes
     def filterImageTable(self):
+        '''
+        :return: Actualizar la tabla Multimedia (donde se ubican las fotos)  
+        '''
         listaCDMTRA = list(set([x[0] for x in arcpy.da.SearchCursor(self.copy, self.CDMTRA)]))
         for m in listaCDMTRA:
             sql = "{} = '{}'".format(self.CDMTRA, m)
@@ -147,6 +185,10 @@ class response(object):
 
     # Reconoce GPT o TB y crea archivos temporales que almacenaran los datos que seran subidos
     def responseToTable(self, table):
+        '''
+        :param table: Feature o tabla que se esta evaluando 
+        :return: Crea un tabla temporal en el SCRATCH gdb
+        '''
         array = [x.get('attributes') for x in self.jsonresponse.get('features')]
         self.identifiers = [[x.get('globalid'), x.get('objectid')] for x in array]
         self.identifiers.sort(key=lambda x: x[1])
@@ -172,6 +214,11 @@ class response(object):
 
     # Actualiza campos a ser subidos y los datos temporales (GPT, TB) del Scratch a la BD
     def appendData(self, feature):
+        '''
+        Primero modiifca los nombres del agol, acondicionandose a la BD
+        Por ultimo agrega los registros a la base de datos
+        :param feature: Tabla o feature sobre la que se almacenara en la BD 
+        '''
         [arcpy.AlterField_management(self.copy, x[1], x[0]) for x in self.items if x[0] != x[1]]
         if "REGISTRO" not in [x.name for x in arcpy.ListFields(self.copy)]:
             arcpy.management.AddField(self.copy, "REGISTRO", "TEXT", "#", "#", 50)
@@ -181,7 +228,6 @@ class response(object):
                 cursor.updateRow(x)
         if self.tipodato == "tabla":
             arcpy.management.Append(self.copy, feature.path, "NO_TEST")
-            pass
 
     # Subir los datos temporales (GPT, TB e Image) del Scratch a la BD
     def appendImageTable(self, feature):
@@ -189,6 +235,9 @@ class response(object):
 
     # Eliminar del Agol los datos que ya han pasado a la Base de datos
     def deleteRowsService(self, table):
+        '''
+        :param table: URL de consulta para eliminar registros
+        '''
         query = '1=1' if self.cdmtra is None else "{} IN {}".format(self.CDMTRA, self.cdmtra)
         response = requests.post(
             table,
@@ -219,6 +268,10 @@ class response(object):
 
     # Proceso de Tablas
     def processTB(self, table):
+        '''
+        Lista de procesos de cada Feature o Tabla
+        :param table: Feature o Tabla a ser evaluada
+        '''
         if self.jsonresponse.get('features'):
             self.responseToTable(table.name)
             self.appendData(table)
@@ -228,6 +281,11 @@ class response(object):
 
     # Proceso de Imagenes
     def processImg(self, table, query):
+        '''
+        Lista de procesos de la Tabla que contiene archivos multimedia
+        :param table: Feature o Tabla con archivos adjuntos a ser evaluada
+        :param query: URL del servicio multimedia
+        '''
         try:
             self.responseImageGid(query=query)  # here
             listaFotos = self.datosFotos()
@@ -255,12 +313,18 @@ class response(object):
 
     # Proceso de eliminar
     def deleteAgol(self):
+        '''
+        Eliminar registros
+        '''
         try:
             self.deleteRowsService(self.srv.delete_url)
         except:
             pass
 
     def process(self):
+        '''
+        Proceso general independientemente del tipo que sea (feature, tabla con o sin imagenes)
+        '''
         global i
         self.tipodato = "tabla"
         for tabla in sorted(self.srv.tbs, key=lambda x: x[0]):
@@ -286,6 +350,9 @@ class response(object):
         self.deleteAgol()
 
     def main(self):
+        '''
+        :return: Proceso general 
+        '''
         try:
             self.process()
         except Exception as e:

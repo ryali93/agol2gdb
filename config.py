@@ -10,8 +10,6 @@ __mail__ = 'ryali93@gmail.com'
 __status__ = 'Product'
 
 BASE_DIR = os.path.dirname(__file__)
-conn = os.path.join(os.path.dirname(BASE_DIR), "config\\bdgeocat_publ_gis.sde")
+conn = os.path.join(os.path.dirname(BASE_DIR), "config\\bdgeocat_publ_gis.sde") # Conexion a BD
 
-IMAGE_FORMAT = '.jpg'                                          # Formato de imagen
-
-# conn = os.path.join(STATIC_DIR, 'conn/BD_GEOCIENTIFICA.sde') # Geodatabase coorporativa
+IMAGE_FORMAT = '.jpg'                                                           # Formato de imagen

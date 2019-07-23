@@ -697,3 +697,92 @@ class TB_ANAPS_02_MULTIMEDIA(object):
 
     def __str__(self):
         return self.name
+
+# Servicios para el modulo de POGs
+
+class GPT_MG_POG(object):
+    def __init__(self):
+        self.objectid = u'objectid'
+        self.globalid = u'globalid'
+        self.POG = u'POG'
+        self.PROY = u'PROY'
+        self.CD_PROY = u'CD_PROY'
+        self.CD_MTRA = u'CD_MTRA'
+        self.FIN = u'FIN'
+        self.CAMPANA = u'CAMPANA'
+        self.BRIGADA = u'BRIGADA'
+        self.FECHA = u'FECHA'
+        self.NORTE = u'NORTE'
+        self.ESTE = u'ESTE'
+        self.ZONA = u'ZONA'
+        self.ALTITUD = u'ALTITUD'
+        self.HOJA = u'HOJA'
+        self.RUTA = u'RUTA'
+        self.LOCALIDAD = u'LOCALIDAD'
+        self.OCURR_MODO = u'OCURR_MODO'
+        self.ULITO = u'ULITO'
+        self.ULITO_OTRO = u'ULITO_OTRO'
+        self.AFLOR_COL = u'AFLOR_COL'
+        self.AFLOR_GMET = u'AFLOR_GMET'
+        self.N_FRACTXM = u'N_FRACTXM'
+        self.N_DIACLXM = u'N_DIACLXM'
+        self.POG_RS = u'POG_RS'
+        self.RS_FOR = u'RS_FOR'
+        self.RS_FABRICA = u'RS_FABRICA'
+        self.RS_MADTEX = u'RS_MADTEX'
+        self.RS_MAT_POR = u'RS_MAT_POR'
+        self.MATRIZ_TIP = u'MATRIZ_TIP'
+        self.RS_COL = u'RS_COL'
+        self.ESTR_SED1 = u'ESTR_SED1'
+        self.ESTR_SED2 = u'ESTR_SED2'
+        self.GRADACION = u'GRADACION'
+        self.SECUENCIA1 = u'SECUENCIA1'
+        self.SECUENCIA2 = u'SECUENCIA2'
+        self.GCFA_POR = u'GCFA_POR'
+        self.MATRIZ_POR = u'MATRIZ_POR'
+        self.CALIZA_TAM = u'CALIZA_TAM'
+        self.HCI_REACC = u'HCI_REACC'
+        self.MATRIZ_TIP_C = u'MATRIZ_TIP_C'
+        self.CALIZA_COM = u'CALIZA_COM'
+        self.RS_NOM = u'RS_NOM'
+        self.POG_RI = u'POG_RI'
+        self.RI_ESTR = u'RI_ESTR'
+        self.RI_TEX = u'RI_TEX'
+        self.PASTA_POR = u'PASTA_POR'
+        self.FENOCR_POR = u'FENOCR_POR'
+        self.RI_M_TEX = u'RI_M_TEX'
+        self.RI_COL_IND = u'RI_COL_IND'
+        self.RI_COL = u'RI_COL'
+        self.RI_DEPVOLC = u'RI_DEPVOLC'
+        self.RI_NOM = u'RI_NOM'
+        self.POG_RM = u'POG_RM'
+        self.RM_ESTR = u'RM_ESTR'
+        self.RM_COL = u'RM_COL'
+        self.RM_CONTLIM = u'RM_CONTLIM'
+        self.RM_TEX = u'RM_TEX'
+        self.RM_TEX_OT = u'RM_TEX_OT'
+        self.RM_REST = u'RM_REST'
+        self.RM_REST_OT = u'RM_REST_OT'
+        self.BMIN = u'BMIN'
+        self.BMIN_FOR = u'BMIN_FOR'
+        self.BMIN_GRO = u'BMIN_GRO'
+        self.BMIN_MINER = u'BMIN_MINER'
+        self.RM_NOM = u'RM_NOM'
+        self.POG_RM_ALTER = u'POG_RM_ALTER'
+        self.ALT_TIPO = u'ALT_TIPO'
+        self.ALT_ENSMIN = u'ALT_ENSMIN'
+        self.COM_ADIC = u'COM_ADIC'
+
+    @property
+    def name(self):
+        res = 'GPT_MG_POG'
+        return res
+
+    @property
+    def path(self):
+        name = self.name
+        res = os.path.join(conn, name)
+        return res
+
+    def __str__(self):
+        return self.name
